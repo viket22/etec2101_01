@@ -32,16 +32,16 @@ int main()
     // that simplify the job of the user
 
     cout << "x=" << x << "abc" << "Hello World!\n";
+    */
 
     // Some code that uses the person class
-    Person p;
-    Person q;
+    Person p(42, "Bob", "Smith");
+    Person q(43, "Sally", "Smith");
 
-    p.id = 42;
-    q.id = 43;
-    p.first_name = "Bob";
-    q.first_name = "Sally";
-
-    cin >> x;
-    */
+    p.set_hourly_rate(15.0f);
+    p.set_hours_worked(30);
+    q.set_hourly_rate(16.75f);
+    q.set_hours_worked(42);
+    
+    cout << "Bob's ID is: " << p.get_id();
 }
