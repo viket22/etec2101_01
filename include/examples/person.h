@@ -37,6 +37,10 @@ public:
 	void set_hourly_rate(float new_rate);
 	void set_hours_worked(unsigned int new_hours);
 
+	// Destructor (Called when an instance is about to be destroyed)
+	// Always has the name of the class, only one.
+	~Person();
+
 };
 
 #endif

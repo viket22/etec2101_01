@@ -1,5 +1,6 @@
 #include <person.h>		// "" used for local files, <> using for libraries built in
 #include <string>
+#include <iostream>
 
 Person::Person() {
 	id = -1;
@@ -59,5 +60,10 @@ void Person::set_hourly_rate(float new_rate)
 void Person::set_hours_worked(unsigned int new_hours)
 {
 	hours_worked = new_hours;
+}
+
+Person::~Person()
+{
+	std::cout << "Person '" << first_name << " " << last_name << "' is about to die!\n";
 }
 

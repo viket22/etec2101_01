@@ -34,7 +34,7 @@ int main()
     cout << "x=" << x << "abc" << "Hello World!\n";
     */
 
-    // Some code that uses the person class
+    // Some code that uses the person class statically
     Person p(42, "Bob", "Smith");
     Person q(43, "Sally", "Smith");
 
@@ -43,5 +43,14 @@ int main()
     q.set_hourly_rate(16.75f);
     q.set_hours_worked(42);
     
-    cout << "Bob's ID is: " << p.get_id();
+    // We can also dynamically allocate a person object
+    Person* pptr = new Person(44, "Eric", "Davis"); // Like malloc (new is perferred)
+                                                // because it works with classes.
+    pptr->set_hourly_rate(12.15f);
+    pptr->set_hours_worked(23);
+    (*pptr).set_hourly_rate(12.35f); // Same as line 49 but sucks just use ->
+
+    delete pptr;                     // Like free, frees up memory pptr points to
+    
+    cout << "Bob's ID is: " << p.get_id() << "\n";
 }
