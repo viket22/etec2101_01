@@ -17,14 +17,11 @@ private:
 	std::string first_name;
 	std::string last_name;
 	float hourly_rate;
+	unsigned int hours_worked;
 public:
 	Person();
 
 	Person(int starting_id, std::string start_fname, std::string start_lname);
-
-	// METHOD - A function that instances of the class can call
-	float calculate_wage();
-	unsigned int hours_worked;
 
 	// GETTER methods
 	int get_id();
@@ -36,6 +33,9 @@ public:
 	// SETTER methods
 	void set_hourly_rate(float new_rate);
 	void set_hours_worked(unsigned int new_hours);
+
+	// METHOD - A function that instances of the class can call
+	float calculate_wage();
 
 	// Destructor (Called when an instance is about to be destroyed)
 	// Always has the name of the class, only one.
