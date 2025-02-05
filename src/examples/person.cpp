@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 
-example::Person::Person() {
+Person::Person() {
 	id = -1;
 	first_name = "?";
 	last_name = "?";
@@ -10,7 +10,7 @@ example::Person::Person() {
 	hours_worked = 0;
 }
 
-example::Person::Person(int start_id, std::string start_fname, std::string start_lname) {
+Person::Person(int start_id, std::string start_fname, std::string start_lname) {
 	id = start_id;
 	first_name = start_fname;
 	last_name = start_lname;
@@ -19,7 +19,7 @@ example::Person::Person(int start_id, std::string start_fname, std::string start
 }
 
 // We're providing the BODY / DEFINITION of the method declared in the person.h file
-float example::Person::calculate_wage() {
+float Person::calculate_wage() {
 	/* In any(non - static) method, we have access to all attributes for
 	   this instance, our job in this method is to tell the compiler how
 	   to calculate a wage using our attributes.
@@ -27,32 +27,32 @@ float example::Person::calculate_wage() {
 	return hourly_rate * hours_worked;
 }
 
-int example::Person::get_id()
+int Person::get_id()
 {
 	return id;
 }
 
-std::string example::Person::get_first_name()
+std::string Person::get_first_name()
 {
 	return first_name;
 }
 
-std::string example::Person::get_last_name()
+std::string Person::get_last_name()
 {
 	return last_name;
 }
 
-float example::Person::get_hourly_rate()
+float Person::get_hourly_rate()
 {
 	return hourly_rate;
 }
 
-unsigned int example::Person::get_hours_worked()
+unsigned int Person::get_hours_worked()
 {
 	return hours_worked;
 }
 
-void example::Person::set_hourly_rate(float new_rate)
+void Person::set_hourly_rate(float new_rate)
 {
 	hourly_rate = new_rate;
 }

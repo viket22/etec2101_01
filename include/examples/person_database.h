@@ -28,12 +28,12 @@ public:
 	std::string my_file_name = " ";
 	PersonDatabase(std::string fname);
 
-	// Adds a person
+	// adds a person.
 	void add_person(Person p);
-	// removes a person
-	void remove_person(Person p);
-	// returns the number of people in the database.
+	// removes a person.
+	bool remove_person(Person p);
+	// returns number of people in database as int.
 	int get_num_people();
-	// returns the database as a string
-	std::string to_string();
+	// returns database as a string.
+	std::string string();
 };

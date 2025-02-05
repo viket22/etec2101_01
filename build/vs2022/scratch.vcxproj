@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\examples\person.h" />
-    <ClInclude Include="person_database.h" />
+    <ClInclude Include="..\..\include\examples\person_database.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\examples\person.cpp" />

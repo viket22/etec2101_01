@@ -5,7 +5,7 @@
 #define MY_FNAME "../../media/person_data.txt"
 
 int main(int argc, char** argv) {
-	example::PersonDatabase PD(MY_FNAME);
+	PersonDatabase PD(MY_FNAME);
 
 	return 0;	// The compiler will call the destructor for PersonDatabase for you here.
 }
