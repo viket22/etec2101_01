@@ -3,6 +3,8 @@
 #pragma once
 #include <person.h>
 
+// Person Database class: Create a PersonDatabase object that holds an array of Person objects.
+
 class PersonDatabase
 {
 private:

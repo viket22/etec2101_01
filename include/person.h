@@ -1,7 +1,7 @@
 // person.h
 #pragma once
 #include <string>
-
+// Person class: Create a person object with attributes first_name, last_name, hourly_rate, and hours_worked.
 class Person
 {
 	// By default attributes and methods are private (can only be access in the class)
