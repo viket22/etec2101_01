@@ -1,3 +1,5 @@
+// person.h
+#pragma once
 #include <string>
 
 class Person
@@ -34,6 +36,5 @@ public:
 	// Destructor (Called when an instance is about to be destroyed)
 	// Always has the name of the class, only one.
 	~Person();
-
 };
 

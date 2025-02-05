@@ -1,64 +1,62 @@
 // person_database.cpp
-#include "person_database.h"
+
+#include <person_database.h>
 #include <person.h>
 #include <string>
 #include <fstream>
-#include "person_database.h"
+#include <iostream>
 
-
-PersonDatabase::PersonDatabase(std::string fname)
-{
-	// Initialize attributes
-	my_array = nullptr;			// This means we (right now) don't have data
+// constructor
+PersonDatabase::PersonDatabase(std::string fname) {
+	// initially have no data.
+	my_array = nullptr;
 	my_array_size = 0;
-
-	// Open the file
 	my_file_name = fname;
+
+	// open the file.
 	std::ifstream fin(fname);
-	if (fin.is_open()) {
-		// Read through the file, line-by-line
-		while (true)
-		{
-			// Get a line's worth of data
-			int temp_id;
-			std::string temp_fname, temp_lname;
-			float temp_hourly_rate;
-			unsigned int temp_hours;
 
-			// <code to read into those>
+	// read through the file line by line
+	int temp_id;
+	std::string temp_fname, temp_lname;
+	float temp_hourly_rate, monthly_salary;
+	unsigned int temp_hours;
 
-			// <code to decide if its read properly>
-			if (!fin.eof())
-			{
-				Person temp_person(temp_id, temp_fname, temp_lname);
-				temp_person.set_hourly_rate(temp_hourly_rate);
-				temp_person.set_hours_worked(temp_hours);
+	std::string dollar;
 
-				// Use our add_person to do the hard work
-				add_person(temp_person);
-			}
-		}
+	// ignore the first line
+	fin.ignore(10000, '\n');
+
+	while (fin >> temp_fname >> temp_lname >> temp_id >> dollar >> temp_hourly_rate >> temp_hours >> monthly_salary) {
+		Person temp_person(temp_id, temp_fname, temp_lname);
+		temp_person.set_hourly_rate(temp_hourly_rate);
+		temp_person.set_hours_worked(temp_hours);
+		add_person(temp_person);
 	}
 
-
-	// Close the file
+	// close the file.
 	fin.close();
 }
 
 PersonDatabase::~PersonDatabase() {
-	// Write out all data to the file (my_file_name) in write mode.
+	// write out all data to the file, my_file_name, in write mode.
+	// free up any resources, deallocate my_array. watch for new's that happen
+	// in add_person, remove_person. make sure that memory that's still allocated
+	// is freed up.
 
-	// Free up any resources - deallocate my_array. Watch for "new's" that happen
-	// (here in add_person, remove_person) -- we need to make sure that memory
-	// that's still allocated is freed up.
-
+	// open file, my_file_name, for writing.
 	std::ofstream fout(my_file_name);
 	if (fout.is_open()) {
+		// output the entire database as a string.
 		fout << PersonDatabase::to_string();
-		
+		// fout << "testing";
 	}
+	// close file.
 	fout.close();
 
+	// clear memory still allocated
+	delete[] my_array;
+	my_array = nullptr;
 }
 
 
@@ -68,7 +66,8 @@ void PersonDatabase::add_person(Person p)
 	for (int i = 0; i < my_array_size; i++) {
 		// check if the id of the person being added already exists in the array
 		if (p.get_id() == my_array[i].get_id()) {
-			std::runtime_error("Person already exists in the database!");
+			throw std::runtime_error("ID already exists in database!");
+			return;
 		}
 	}
 	// if nothing in the array, make an array of size 1 and put person p in the only spot.
@@ -77,6 +76,7 @@ void PersonDatabase::add_person(Person p)
 		my_array = new Person[1];
 		my_array[0] = p;
 		my_array_size = 1;
+		return;
 	}
 
 	// if array is already there, make a Person array of my_array_size + 1,
@@ -88,41 +88,66 @@ void PersonDatabase::add_person(Person p)
 		for (int i = 0; i < my_array_size; i++) {
 			new_array[i] = my_array[i];
 		}
+		// make sure to add the new person to the last position.
+		new_array[my_array_size] = p;
+		// turn the new_array into my_array
 		delete[] my_array;
 		my_array = new_array;
+		// increment my_array_size as a new person was added.
+		my_array_size++;
 	}
 }
 
 // remove a person.
-void PersonDatabase::remove_person(Person p) {
-	// create a new array that is 1 smaller
-	Person* new_array = new Person[my_array_size - 1];
-	int removed_id = p.get_id();
-	// copy people in array before the one being removed
-	for (int i = 0; i < removed_id; i++) {
-		new_array[i] = my_array[i];
+bool PersonDatabase::remove_person(int id_number) {
+	if (my_array_size == 0) {
+		return false;
 	}
-	// copy people in array after the one being removed
-	for (int i = removed_id + 1; i < my_array_size; i++) {
-		new_array[i - 1] = my_array[i];
+	int remove_index = -1;
+	// get the index of the person to remove
+	for (int i = 0; i < my_array_size; i++) {
+		if (my_array[i].get_id() == id_number) {
+			remove_index = i;
+			break;
+		}
+	}
+	if (remove_index == -1) {
+		// return false if the ID input isnt found
+		return false;
+	}
+	// make a new array thats one smaller than current array size
+	Person* new_array = new Person[my_array_size - 1];
+
+	// copy all elements except the one to get rid of
+	for (int i = 0, j = 0; i < my_array_size; i++) {
+		if (i != remove_index) {
+			new_array[j++] = my_array[i];
+		}
 	}
 	delete[] my_array;
 	my_array = new_array;
+	// decrement array size since one person was removed
+	my_array_size--;
+
+	return true;
 }
 
 // return number of people as int.
 int PersonDatabase::get_num_people() {
-	return 0;
+	return my_array_size;
 }
 
 // return database as a string.
 std::string PersonDatabase::to_string() {
-	std::string output = "";
+	std::string output = "= Name ======= ID ===== Hourly Wage == Hours Worked ====== Monthly Salary =\n";
 	for (int i = 0; i < my_array_size; i++) {
 		// print out each Person in the array, along with their data
-		output + my_array[i].get_first_name() + my_array[i].get_last_name() +
-			"\t" + std::to_string(my_array[i].get_id()) + "\t$" + std::to_string(my_array[i].get_hourly_rate()) +
-				std::to_string(my_array[i].get_hours_worked()) + "\n";
+		output += my_array[i].get_first_name() +
+		" " + my_array[i].get_last_name() +
+		"\t" + std::to_string(my_array[i].get_id()) +
+		"\t$ " + std::to_string(my_array[i].get_hourly_rate()) +
+		"\t   " + std::to_string(my_array[i].get_hours_worked()) + 
+		"\t\t    " + std::to_string(my_array[i].calculate_wage()) + "\n";
 	}
 	return output;
 }

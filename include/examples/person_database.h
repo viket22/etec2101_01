@@ -1,39 +1,30 @@
 // person_database.h
 
+#pragma once
 #include <person.h>
 
 class PersonDatabase
 {
 private:
-	// int* temp;		// Does temp point to a single int?
-	// int x = 70;
-	// temp = &x;
-	// temp = (int*)malloc(sizeof(int) * 100); // an array of 100 ints
-	// temp[0] = 77;
-	// temp[1] = 78;
-						// Or an array?
-						// Could be both
-
-
-	Person* my_array;			// This WILL hold (eventually)
-	//   an array of Person objects.
-	unsigned int my_array_size;	// The size of the my_array array
-	//Person my_data[100];		// No! Can't go over
-								// 100 entries
+	// will eventually hold an array of Person objects.
+	Person* my_array;
+	// the size of my_array array.
+	unsigned int my_array_size;
 public:
-	// This method should open the file, probably
-	// reading in one person per line like this
-	// 101 John Doe 42 13.5
-	// 102 Sally Smith 18 19.75
+	// this method should open the file, reading in one person per line.
+	// ex: 101 John Doe 42 13.5
+	// ex: 102 Jane Doe 48 14.5
 	std::string my_file_name = " ";
 	PersonDatabase(std::string fname);
 
 	// adds a person.
 	void add_person(Person p);
 	// removes a person.
-	bool remove_person(Person p);
+	bool remove_person(int id_number);
 	// returns number of people in database as int.
 	int get_num_people();
 	// returns database as a string.
-	std::string string();
+	std::string to_string();
+
+	~PersonDatabase();
 };

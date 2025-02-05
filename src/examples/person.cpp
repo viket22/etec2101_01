@@ -1,7 +1,10 @@
-#include <person.h>		// "" used for local files, <> using for libraries built in
+// person.cpp
+
+#include <person.h>
 #include <string>
 #include <iostream>
 
+// default values if not given
 Person::Person() {
 	id = -1;
 	first_name = "?";
@@ -18,7 +21,6 @@ Person::Person(int start_id, std::string start_fname, std::string start_lname) {
 	hours_worked = 0;
 }
 
-// We're providing the BODY / DEFINITION of the method declared in the person.h file
 float Person::calculate_wage() {
 	/* In any(non - static) method, we have access to all attributes for
 	   this instance, our job in this method is to tell the compiler how
@@ -64,6 +66,6 @@ void Person::set_hours_worked(unsigned int new_hours)
 
 Person::~Person()
 {
-	std::cout << "Person '" << first_name << " " << last_name << "' is about to die!\n";
+	//std::cout << "Destructor called!\n";
 }
 
