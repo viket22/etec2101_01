@@ -1,4 +1,1 @@
 = Name ======= ID ===== Hourly Wage == Hours Worked ====== Monthly Salary =
-john doe	1	$ 20.000000	   60		    1200.000000
-jane doe	3	$ 1.000000	   1		    1.000000
-jonny dooly	4	$ 1.000000	   1		    1.000000

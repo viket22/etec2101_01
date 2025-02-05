@@ -11,11 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\examples\person.h" />
-    <ClInclude Include="..\..\include\examples\person_database.h" />
+    <ClInclude Include="..\..\include\person.h" />
+    <ClInclude Include="..\..\include\person_database.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\examples\person.cpp" />
+    <ClCompile Include="..\..\src\person.cpp" />
     <ClCompile Include="lab01_main.cpp" />
     <ClCompile Include="person_database.cpp" />
   </ItemGroup>
