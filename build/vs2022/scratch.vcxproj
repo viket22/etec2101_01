@@ -15,9 +15,9 @@
     <ClInclude Include="..\..\include\person_database.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\lab01_main.cpp" />
     <ClCompile Include="..\..\src\person.cpp" />
-    <ClCompile Include="lab01_main.cpp" />
-    <ClCompile Include="person_database.cpp" />
+    <ClCompile Include="..\..\src\person_database.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
