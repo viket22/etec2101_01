@@ -1,8 +1,13 @@
-// array_list.h (no array_list.cpp!!!!)
 #pragma once
+/// <summary>
+/// array_list.h : implements a dynamic array that can be automatically resized as the elements inside are added or removed.
+/// </summary>
 namespace ssuds
 {
 	template <class T>
+	/// <summary>
+	/// templated dynamic array class that provides similar functionality to std::vector.
+	/// </summary>
 	class ArrayList
 	{
 	private:
@@ -11,37 +16,62 @@ namespace ssuds
 		unsigned int my_array_capacity;
 
 	public:
+		/// <summary>
+		/// default constructor, initializes default values for my_array.
+		/// </summary>
 		ArrayList()
 		{
-			// Option1: allocate the array to some small size
 			my_array_capacity = 5;
 			my_array = new T[my_array_capacity];
 			my_array_size = 0;
-
-			// Option2: don't allocate the array just yet -- wait until first
-			// append/insert/prepend
-			//my_array_capacity = 0;
-			//my_array_size = 0;
-			//my_array = nullptr;
 		}
 
+		/// <summary>
+		/// ArrayList constructor, passed reserved_space by user to preset the array capacity.
+		/// </summary>
+		/// <param name="reserved_space"></param>
+		ArrayList(unsigned int reserved_space) {
+			my_array_capacity = reserved_space;
+			my_array = new T[my_array_capacity];
+			my_array_size = 0;
+		}
+
+		/// <summary>
+		/// ArrayList destructor.
+		/// </summary>
 		~ArrayList()
 		{
 			delete[] my_array;
 		}
 
+		/// <summary>
+		/// returns the size of my_array as an integer.
+		/// </summary>
+		/// <returns>my_array_size</returns>
 		int size() {
 			return my_array_size;
 		}
 
+		/// <summary>
+		/// returns the size of my_array_capacity as an integer.
+		/// </summary>
+		/// <returns>my_array_capacity</returns>
 		int capacity() {
 			return my_array_capacity;
 		}
 
+		/// <summary>
+		/// allows the user to set the capacity of the ArrayList
+		/// </summary>
+		/// <param name="new_capacity"></param>
 		void reserve(unsigned int new_capacity) {
 			my_array_capacity = new_capacity;
 		}
 
+		/// <summary>
+		/// takes a value from the user and appends it to the end of the array.
+		/// </summary>
+		/// <param name="new_value"></param>
 		void append(const T& new_value)
 		{
 
@@ -66,6 +96,10 @@ namespace ssuds
 			my_array_size++;
 		}
 
+		/// <summary>
+		/// takes a value from the user and prepends it to the beginning of the array.
+		/// </summary>
+		/// <param name="new_value"></param>
 		void prepend(const T& new_value)
 		{
 			// check if the current array size is the same as capacity size (need to double capacity), if so make a new
@@ -95,6 +129,11 @@ namespace ssuds
 			my_array_size++;
 		}
 
+		/// <summary>
+		/// allows the user to insert a value at any id in the array, and pushes the values down to make room for the new value.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <param name="id"></param>
 		void insert(const T& value, unsigned int id) {
 			if (id < 0 || id > my_array_size) {
 				throw std::out_of_range("Out of range!");
@@ -127,7 +166,10 @@ namespace ssuds
 			my_array_size++;
 		}
 
-
+		/// <summary>
+		/// allows the user to specify a certain id to remove in the array.
+		/// </summary>
+		/// <param name="id"></param>
 		void remove(unsigned int id)
 		{
 			// throw an out of range error if id is larger than the array size.
@@ -161,6 +203,11 @@ namespace ssuds
 			}
 		}
 
+		/// <summary>
+		/// allows the user to specify a specific value, and removes all occurrences of that value in the array.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns>removed_count</returns>
 		int remove_all(const T& value) {
 			int removed_count = 0;
 			int i = 0;
@@ -179,6 +226,11 @@ namespace ssuds
 			return removed_count;
 		}
 
+		/// <summary>
+		/// returns the value at any given index.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns>my_array[index]</returns>
 		T at(unsigned int index) const
 		{
 			// check if index is invalid, if so throw out of range error
@@ -190,6 +242,12 @@ namespace ssuds
 			}
 		}
 
+		/// <summary>
+		/// finds what value is at any given index, can be passed a certain index to start from, default value is 0.
+		/// </summary>
+		/// <param name="search_value"></param>
+		/// <param name="start_index"></param>
+		/// <returns>i</returns>
 		int find(const T& search_value, unsigned int start_index = 0)
 		{
 			// loop through array starting at user given start_index, search for search_value
@@ -204,7 +262,10 @@ namespace ssuds
 		}
 
 
-		// ostream is the base class for all output-based streams (cout, ofstream).
+		/// <summary>
+		/// takes a reference to an ostream object and produce an output.
+		/// </summary>
+		/// <param name="os"></param>
 		void output(std::ostream& os)
 		{
 			os << "[";
